@@ -3,7 +3,7 @@ enum RadioMessage {
 }
 radio.onReceivedNumber(function (receivedNumber) {
     entries.push(radio.receivedPacket(RadioPacketProperty.SerialNumber))
-    music.ringTone(262)
+    music.playTone(262, music.beat(BeatFraction.Eighth))
 })
 input.onButtonPressed(Button.A, function () {
     entries = []
@@ -29,6 +29,7 @@ let sendText = ""
 let entries: number[] = []
 radio.setGroup(4)
 radio.setTransmitPower(7)
+serial.setBaudRate(BaudRate.BaudRate115200)
 serial.redirectToUSB()
 entries = []
 sendText = ""
