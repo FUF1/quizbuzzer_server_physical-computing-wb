@@ -10,32 +10,39 @@ input.onButtonPressed(Button.B, function () {
         basic.showIcon(IconNames.Happy)
         winningPlayerList = []
         for (let Index = 0; Index <= entries.length - 1; Index++) {
-            let currentEntry = 0
-            if (entries[currentEntry] == -1907160588) {
+            if (entries[Index] == -1907160588) {
                 winningPlayerList.push("A")
-            } else if (entries[currentEntry] == -1372141027) {
+            } else if (entries[Index] == -1372141027) {
                 winningPlayerList.push("B")
-            } else if (entries[currentEntry] == 943271416) {
+            } else if (entries[Index] == 943271416) {
                 winningPlayerList.push("C")
-            } else if (entries[currentEntry] == 1472197505) {
+            } else if (entries[Index] == 1472197505) {
                 winningPlayerList.push("D")
-            } else if (entries[currentEntry] == -1850258811) {
+            } else if (entries[Index] == -1850258811) {
                 winningPlayerList.push("E")
             } else {
                 winningPlayerList.push("")
             }
         }
-        for (let Index = 0; Index <= winningPlayerList.length - 1; Index++) {
-            sendText = "" + sendText + "; " + winningPlayerList[Index]
-        }
-        serial.writeLine(sendText)
         entries = []
         basic.pause(100)
         basic.clearScreen()
         while (!(input.buttonIsPressed(Button.A))) {
             basic.showString("" + (winningPlayerList[0]))
+            basic.pause(1000)
+            basic.showIcon(IconNames.SmallDiamond)
+            for (let Index = 0; Index <= winningPlayerList.length - 2; Index++) {
+                basic.showString("" + (winningPlayerList[Index + 1]))
+                basic.pause(200)
+            }
+            basic.showString("  ---")
+            basic.pause(500)
         }
         basic.clearScreen()
+        for (let Index = 0; Index <= winningPlayerList.length - 1; Index++) {
+            sendText = "" + sendText + "; " + winningPlayerList[Index]
+        }
+        serial.writeString(sendText)
         music.playMelody("G B A G C5 B A B ", 600)
         sendText = ""
         basic.showIcon(IconNames.House)
@@ -48,14 +55,15 @@ input.onButtonPressed(Button.B, function () {
         music.playTone(147, music.beat(BeatFraction.Half))
     }
 })
-let winningPlayerList: string[] = []
 let sendText = ""
+let winningPlayerList: string[] = []
 let entries: number[] = []
 radio.setGroup(4)
 radio.setTransmitPower(7)
 serial.setBaudRate(BaudRate.BaudRate115200)
 serial.redirectToUSB()
 entries = []
+winningPlayerList = []
 sendText = ""
 basic.showIcon(IconNames.Yes)
 basic.pause(1000)
