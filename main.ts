@@ -27,6 +27,7 @@ input.onButtonPressed(Button.B, function () {
         entries = []
         basic.pause(100)
         basic.clearScreen()
+        music.playMelody("F G A C5 - B C5 C5 ", 400)
         while (!(input.buttonIsPressed(Button.A))) {
             basic.showString("" + (winningPlayerList[0]))
             basic.pause(1000)
@@ -35,14 +36,13 @@ input.onButtonPressed(Button.B, function () {
                 basic.showString("" + (winningPlayerList[Index + 1]))
                 basic.pause(200)
             }
-            basic.showString("  ---")
-            basic.pause(500)
+            basic.showString("  -")
+            basic.pause(200)
         }
         basic.clearScreen()
         for (let Index = 0; Index <= winningPlayerList.length - 1; Index++) {
             sendText = "" + sendText + "; " + winningPlayerList[Index]
         }
-        serial.writeString(sendText)
         music.playMelody("G B A G C5 B A B ", 600)
         sendText = ""
         basic.showIcon(IconNames.House)
